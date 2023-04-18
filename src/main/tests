@@ -1,0 +1,35 @@
+package com.mt.services;
+
+import static org.junit.Assert.assertEquals;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
+
+public class EmployeeServiceTest {
+	
+	private EmployeeService employeeService;
+	private MockHttpServletRequest request;
+	private MockHttpServletResponse response;
+	private MockHttpSession session;
+
+	@Before
+	public void setUp() {
+		employeeService = new EmployeeService();
+		request = new MockHttpServletRequest();
+		response = new MockHttpServletResponse();
+		session = new MockHttpSession();
+	}
+
+	@Test
+	public void testGetEmployeeDetails() throws JSONException {
+		String expectedResponse = "{\"Name\":\"Sanchit Raj\",\"Calling Name\":\"sanchit\",\"DOB\":\"30/09/2022\",\"Hobbies\":\"Reading Technical Blogs,Teaching, Helping to Poor People..\",\"Places he like\":\"His native place\"}";
+		String actualResponse = employeeService.uploadImage(request, response, session);
+		JSONObject expectedJSON = new JSONObject(expectedResponse);
+		JSONObject actualJSON = new JSONObject(actualResponse);
+		assertEquals(expectedJSON.toString(), actualJSON.toString());
+	}
+}
